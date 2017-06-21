@@ -1127,17 +1127,22 @@ def resolve_stream(*args):
 # ==================================
 
 # find and load library
-os_name = platform.system()
-bitness = 8 * struct.calcsize("P")
-if os_name in ['Windows', 'Microsoft']:
-    libname = 'liblsl32.dll' if bitness == 32 else 'liblsl64.dll'
-elif os_name == 'Darwin':
-    libname = 'liblsl32.dylib' if bitness == 32 else 'liblsl64.dylib'
-elif os_name == 'Linux':
-    libname = 'liblsl32.so' if bitness == 32 else 'liblsl64.so'
+arch_name = platform.machine()
+if arch_name == 'armv7l':
+    libname = 'liblsl32armv7l.so'
 else:
-    raise RuntimeError("unrecognized operating system:", os_name)
+    os_name = platform.system()
+    bitness = 8 * struct.calcsize("P")
+    if os_name in ['Windows', 'Microsoft']:
+        libname = 'liblsl32.dll' if bitness == 32 else 'liblsl64.dll'
+    elif os_name == 'Darwin':
+        libname = 'liblsl32.dylib' if bitness == 32 else 'liblsl64.dylib'
+    elif os_name == 'Linux':
+        libname = 'liblsl32.so' if bitness == 32 else 'liblsl64.so'
+    else:
+        raise RuntimeError("unrecognized operating system:", os_name)
 libpath = os.path.join(os.path.dirname(__file__), libname)
+
 if not os.path.isfile(libpath):
     libpath = util.find_library(libname)
 if not libpath:

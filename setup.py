@@ -88,7 +88,7 @@ setup(
     # installed, specify them here.  If using Python 2.6 or less, then these
     # have to be included in MANIFEST.in as well.
     package_data={
-        'pylsl': ['liblsl32.dll','liblsl64.dll','liblsl32.dylib','liblsl64.dylib','liblsl32.so','liblsl64.so'],
+        'pylsl': ['liblsl32.dll','liblsl64.dll','liblsl32.dylib','liblsl64.dylib','liblsl32.so','liblsl64.so','liblsl32armv7l.so'],
     },
 
     # Although 'package_data' is the preferred approach, in some case you may
